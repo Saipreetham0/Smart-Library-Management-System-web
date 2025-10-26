@@ -1,9 +1,10 @@
-import { database } from './firebase';
+import { getFirebaseDatabase } from './firebase';
 import { ref, onValue, off, get, set, remove } from 'firebase/database';
 import { Student, Book, Transaction, Stats, NoiseAlert } from './types';
 
 // Stats
 export const subscribeToStats = (callback: (stats: Stats) => void) => {
+  const database = getFirebaseDatabase();
   const statsRef = ref(database, 'stats');
   onValue(statsRef, (snapshot) => {
     const data = snapshot.val();
@@ -19,6 +20,7 @@ export const subscribeToStats = (callback: (stats: Stats) => void) => {
 
 // Students
 export const subscribeToStudents = (callback: (students: Student[]) => void) => {
+  const database = getFirebaseDatabase();
   const studentsRef = ref(database, 'students');
   onValue(studentsRef, (snapshot) => {
     const data = snapshot.val();
@@ -36,6 +38,7 @@ export const subscribeToStudents = (callback: (students: Student[]) => void) => 
 };
 
 export const getStudent = async (studentId: string): Promise<Student | null> => {
+  const database = getFirebaseDatabase();
   const studentRef = ref(database, `students/${studentId}`);
   const snapshot = await get(studentRef);
   if (snapshot.exists()) {
@@ -45,6 +48,7 @@ export const getStudent = async (studentId: string): Promise<Student | null> => 
 };
 
 export const addStudent = async (student: Omit<Student, 'studentId'> & { studentId: string }) => {
+  const database = getFirebaseDatabase();
   const studentRef = ref(database, `students/${student.studentId}`);
   await set(studentRef, {
     name: student.name,
@@ -56,6 +60,7 @@ export const addStudent = async (student: Omit<Student, 'studentId'> & { student
 };
 
 export const updateStudent = async (studentId: string, data: Partial<Student>) => {
+  const database = getFirebaseDatabase();
   const studentRef = ref(database, `students/${studentId}`);
   const snapshot = await get(studentRef);
   if (snapshot.exists()) {
@@ -64,12 +69,14 @@ export const updateStudent = async (studentId: string, data: Partial<Student>) =
 };
 
 export const deleteStudent = async (studentId: string) => {
+  const database = getFirebaseDatabase();
   const studentRef = ref(database, `students/${studentId}`);
   await remove(studentRef);
 };
 
 // Books
 export const subscribeToBooks = (callback: (books: Book[]) => void) => {
+  const database = getFirebaseDatabase();
   const booksRef = ref(database, 'books');
   onValue(booksRef, (snapshot) => {
     const data = snapshot.val();
@@ -87,6 +94,7 @@ export const subscribeToBooks = (callback: (books: Book[]) => void) => {
 };
 
 export const getBook = async (bookId: string): Promise<Book | null> => {
+  const database = getFirebaseDatabase();
   const bookRef = ref(database, `books/${bookId}`);
   const snapshot = await get(bookRef);
   if (snapshot.exists()) {
@@ -96,6 +104,7 @@ export const getBook = async (bookId: string): Promise<Book | null> => {
 };
 
 export const addBook = async (book: Omit<Book, 'bookId'> & { bookId: string }) => {
+  const database = getFirebaseDatabase();
   const bookRef = ref(database, `books/${book.bookId}`);
   await set(bookRef, {
     title: book.title,
@@ -108,6 +117,7 @@ export const addBook = async (book: Omit<Book, 'bookId'> & { bookId: string }) =
 };
 
 export const updateBook = async (bookId: string, data: Partial<Book>) => {
+  const database = getFirebaseDatabase();
   const bookRef = ref(database, `books/${bookId}`);
   const snapshot = await get(bookRef);
   if (snapshot.exists()) {
@@ -116,12 +126,14 @@ export const updateBook = async (bookId: string, data: Partial<Book>) => {
 };
 
 export const deleteBook = async (bookId: string) => {
+  const database = getFirebaseDatabase();
   const bookRef = ref(database, `books/${bookId}`);
   await remove(bookRef);
 };
 
 // Transactions
 export const subscribeToTransactions = (callback: (transactions: Transaction[]) => void) => {
+  const database = getFirebaseDatabase();
   const transactionsRef = ref(database, 'transactions');
   onValue(transactionsRef, (snapshot) => {
     const data = snapshot.val();
@@ -143,6 +155,7 @@ export const subscribeToTransactions = (callback: (transactions: Transaction[]) 
 
 // Noise Alerts
 export const subscribeToNoiseAlerts = (callback: (alerts: NoiseAlert[]) => void) => {
+  const database = getFirebaseDatabase();
   const alertsRef = ref(database, 'alerts/noise');
   onValue(alertsRef, (snapshot) => {
     const data = snapshot.val();

@@ -1,4 +1,4 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
+import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
 import { getDatabase, Database } from 'firebase/database';
 
 const firebaseConfig = {
@@ -11,8 +11,20 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-const database = getDatabase(app);
+// Lazy initialization functions
+let app: FirebaseApp | null = null;
+let database: Database | null = null;
 
-export { app, database };
+export const getFirebaseApp = () => {
+  if (!app) {
+    app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+  }
+  return app;
+};
+
+export const getFirebaseDatabase = () => {
+  if (!database) {
+    database = getDatabase(getFirebaseApp());
+  }
+  return database;
+};
