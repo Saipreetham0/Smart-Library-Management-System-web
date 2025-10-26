@@ -96,22 +96,22 @@ pnpm start
 
 ```
 web-dashboard/
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Dashboard home page
-│   ├── students/          # Students management page
-│   ├── books/             # Books management page
-│   ├── transactions/      # Transaction history page
-│   ├── alerts/            # Noise alerts page
-│   ├── layout.tsx         # Root layout with navigation
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── Navigation.tsx     # Main navigation bar
-│   ├── StatCard.tsx       # Statistics card component
-│   └── RecentActivity.tsx # Activity feed component
-├── lib/                   # Utilities and services
-│   ├── firebase.ts        # Firebase initialization
-│   ├── firebaseService.ts # Database operations
-│   └── types.ts           # TypeScript type definitions
+├── src/
+│   ├── app/                    # Next.js App Router pages
+│   │   ├── page.tsx           # Dashboard home page
+│   │   ├── students/          # Students management page
+│   │   ├── books/             # Books management page
+│   │   ├── transactions/      # Transaction history page
+│   │   ├── alerts/            # Noise alerts page
+│   │   ├── layout.tsx         # Root layout with navigation
+│   │   └── globals.css        # Global styles
+│   ├── components/            # React components
+│   ├── hooks/                 # Custom React hooks
+│   ├── lib/                   # Utilities and services
+│   ├── types/                 # TypeScript type definitions
+│   ├── utils/                 # Utility functions
+│   ├── config/                # Configuration files
+│   └── constants/             # Constants
 ├── public/                # Static assets
 └── package.json           # Dependencies
 ```
